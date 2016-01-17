@@ -23,7 +23,7 @@ class klok:
         self.fHour, self.fMinute = self.fTime()
         # Fib time converted into colors (G=Hours, R=Minutes, B=Hours and Minutes)
         self.timeColor = self.fTimeColor()
-        self.fTimeRGB = self.fTimeRGB() 
+        self.timeRGB = self.fTimeRGB() 
 
     def new_time(self):
         # Check if the difference between the time is 5 minutes
@@ -35,7 +35,7 @@ class klok:
             self.minute = minute
             self.fHour, self.fMinute = self.fTime()
             self.timeColor = self.fTimeColor()
-            self.fTimeRGB = self.fTimeRGB() 
+            self.timeRGB = self.fTimeRGB() 
             return True
         else:
             return False
@@ -56,15 +56,21 @@ class klok:
         return timeColor
 
     def fTimeRGB(self):
-        fTimeRGB = [[0] * 5] * 3
+        fRGB = {}
         for i in range(5):
+            #Blue
             if self.fMinute[i] and self.fHour[i]:
-                fTimeRGB[2][i] = 255
+                fRGB[i]= [0, 0, 255]
+            #Green
             elif self.fMinute[i]:
-                fTimeRGB[1][i] = 255
+                fRGB[i]= [0, 255, 0]
+            #Red
             elif self.fHour[i]:
-                fTimeRGB[0][i] = 255
-        return fTimeRGB
+                fRGB[i]= [255, 0, 0]
+            #White
+            else:
+                fRGB[i]= [255, 255, 255]
+        return fRGB
 
 
 
@@ -73,47 +79,11 @@ if __name__ == '__main__':
     print test.timeColor
     print "Previous Time: ", test.prev_hour, ':', test.prev_minute
     print "New Time: ", test.hour, ':', test.minute
-    print test.fTimeRGB
-    '''
-    print 'Fade Time: ', test.fadeTime
-    print 'werkt'
-    print test.timeColor
-    print '+---------------------+'
-    print '|', test.timeColor[2],  test.timeColor[2],  '|', test.timeColor[0], '|',  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4], '|'
-    print '+     +---+           +'
-    print '|', test.timeColor[2],  test.timeColor[2],  '|', test.timeColor[1], '|',  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4], '|'
-    print '+-----+---+           +'
-    print '|', test.timeColor[3],  test.timeColor[3],  ' ', test.timeColor[3], '|',  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4], '|'
-    print '|                     |'
-    print '|', test.timeColor[3],  test.timeColor[3],  ' ', test.timeColor[3], '|',  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4], '|'
-    print '|                     |'
-    print '|', test.timeColor[3],  test.timeColor[3],  ' ', test.timeColor[3], '|',  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4], '|'
-    print '+---------------------+'
-    print 'Readable Time\t\t', datetime.now().hour, datetime.now().minute
-    print 'Non Readable Time\t', test.hour, test.minute
-    print 'Fib Hours\t', test.fHour
-    print 'Fib Minutes\t', test.fMinute
-    '''
+    print test.timeRGB
     while True:
         if test.new_time():
+            print 'NEW TIME'
             print test.timeColor
             print "Previous Time: ", test.prev_hour, ':', test.prev_minute
             print "New Time: ", test.hour, ':', test.minute
-            print test.fTimeRGB
-            '''
-            print '+---------------------+'
-            print '|', test.timeColor[2],  test.timeColor[2],  '|', test.timeColor[0], '|',  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4], '|'
-            print '+     +---+           +'
-            print '|', test.timeColor[2],  test.timeColor[2],  '|', test.timeColor[1], '|',  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4], '|'
-            print '+-----+---+           +'
-            print '|', test.timeColor[3],  test.timeColor[3],  ' ', test.timeColor[3], '|',  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4], '|'
-            print '|                     |'
-            print '|', test.timeColor[3],  test.timeColor[3],  ' ', test.timeColor[3], '|',  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4], '|'
-            print '|                     |'
-            print '|', test.timeColor[3],  test.timeColor[3],  ' ', test.timeColor[3], '|',  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4],  test.timeColor[4], '|'
-            print '+---------------------+'
-            print 'Readable Time\t\t', datetime.now().hour, datetime.now().minute
-            print 'Non Readable Time\t', test.hour, test.minute
-            print 'Fib Hours\t', test.fHour
-            print 'Fib Minutes\t', test.fMinute
-            '''
+            print test.timeRGB
