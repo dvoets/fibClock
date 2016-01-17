@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from time import sleep
 from fSequence import fSeq
 import random
@@ -6,10 +6,11 @@ import random
 class klok:
     def __init__(self, fadeTime):
         # Constant for fading
-        self.fadeTime = fadeTime
         # Initialize the time
-        self.minute = datetime.now().minute / 5
-        self.hour = datetime.now().hour
+        self.fadeTime = fadeTime
+        now = datetime.now() + timedelta(seconds=self.fadeTime)
+        self.minute = now.minute / 5
+        self.hour = now.hour
 
         # Rescale hours to 1-12
         if self.hour > 12:
@@ -27,12 +28,13 @@ class klok:
 
     def new_time(self):
         # Check if the difference between the time is 5 minutes
-        minute = datetime.now().minute / 5
+        now = datetime.now() + timedelta(seconds=self.fadeTime)
+        minute = now.minute / 5
         if self.minute != minute:
             self.prev_hour = self.hour
             self.prev_minute = self.minute
-            self.hour = datetime.now().hour
-            self.minute = minute
+            self.hour = now.hour
+            self.minute = now.minute / 5
             self.fHour, self.fMinute = self.fTime()
             self.timeColor = self.fTimeColor()
             self.timeRGB = self.fTimeRGB() 
@@ -75,7 +77,8 @@ class klok:
 
 
 if __name__ == '__main__':
-    test = klok(0)
+    test = klok(4)
+    print 'TIME NOW:', datetime.now()
     print test.timeColor
     print "Previous Time: ", test.prev_hour, ':', test.prev_minute
     print "New Time: ", test.hour, ':', test.minute
@@ -83,6 +86,7 @@ if __name__ == '__main__':
     while True:
         if test.new_time():
             print 'NEW TIME'
+            print 'TIME NOW:', datetime.now()
             print test.timeColor
             print "Previous Time: ", test.prev_hour, ':', test.prev_minute
             print "New Time: ", test.hour, ':', test.minute
