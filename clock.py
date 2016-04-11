@@ -15,7 +15,9 @@ import time
 
 
 class clock:
-    """docstring for clock"""
+    """class that will check if the time has changed based on:
+            - unit = divide minutes in buckets of units
+            - offset = starts offset seconds before"""
     def __init__(self, unit, offset):
         self.unit, self.offset = unit, offset
         self.prevHour = self.tOffset().hour
@@ -26,10 +28,12 @@ class clock:
         print('Current Time', datetime.now())
 
     def tOffset(self):
+        """adds offset seconds to time"""
         now = datetime.now() + timedelta(seconds=self.offset)
         return now
 
     def timeChange(self):
+        """function returns True if time has changed otherwise False"""
         now = self.tOffset()
         self.hour = now.hour
         self.minute = now.minute - now.minute % 5
