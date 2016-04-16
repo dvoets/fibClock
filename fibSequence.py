@@ -11,6 +11,9 @@ class fibMagic:
         self.fibSequence = self.fibSeq()
         self.fibDecomposed = self.fibDecom()
 
+    def __del__(self):
+        print('Bye from the fibMagic')
+
     def fibSeq(self):
         """Fibonnaci sequence"""
         a, b = 0, 1

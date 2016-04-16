@@ -22,10 +22,13 @@ class clock:
         self.unit, self.offset = unit, offset
         self.prevHour = self.tOffset().hour
         self.prevMinute = self.tOffset().minute - self.tOffset().minute % 5
-        self.hour = self.prevHour
+        self.hour = self.prevHour if self.prevHour <= 12 else self.prevHour - 12
         self.minute = self.prevMinute
         print('Start Time', self.prevHour, ':', self.prevMinute)
         print('Current Time', datetime.now())
+
+    def __del__(self):
+        print('Bye from the clock')
 
     def tOffset(self):
         """adds offset seconds to time"""
@@ -35,7 +38,7 @@ class clock:
     def timeChange(self):
         """function returns True if time has changed otherwise False"""
         now = self.tOffset()
-        self.hour = now.hour
+        self.hour = now.hour if now.hour <= 12 else now.hour - 12
         self.minute = now.minute - now.minute % 5
         if self.minute == self.prevMinute:
             return False
